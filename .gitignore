@@ -70,3 +70,19 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Cleaning Up Unity's Default .gitignore so that it actually works
+*/.vscode/
+
+*.meta
+
+*/EyeDataOutput/
+*Library/
+*Plugins/
+*XR/
+*Resources/
+*Logs/
+*Packages/
+*ProjectSettings/
+*UserSettings/
+*Oculus/
