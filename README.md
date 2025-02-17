@@ -7,6 +7,8 @@ I (Niall) added updated eye tracking and logging. Still need to verify that we a
 
 You *should* be able to just clone this repository and have the necessary Meta SDK and client installed and it should work out of the box. No need to build to the device. Just plug in the HMD into the PC (using a high-bandwidth USB cable), make sure that eye tracking and facial expressions over link cable are enabled in the *Meta Quest Link* Windows client, open Quest Link in the HMD, and press the Play button in Unity.
 
+Note: I updated the project to Unity v2022.3.49f1.g
+
 ## Dev Notes: 2024-08-16
 
 Eyeball position and rotation is recorded via the `EyeDataWriter.cs` script by its connection to the `Experiment Eye Gaze Right/Left` Game Object + the `ExperimentEyeGaze.cs` script. `ExperimentEyeGaze.cs` is a customized version of the `OVREyeGaze.cs` script, with only one line of code changed:
