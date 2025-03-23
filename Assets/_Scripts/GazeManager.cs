@@ -19,6 +19,7 @@ public class GazeManager : MonoBehaviour{
         eyeGaze = gameObject.GetComponent<OVREyeGaze>();
         faceAPI = gameObject.GetComponent<OVRFaceExpressions>();
         isLeft = gameObject.name.Contains("Left");
+        
         // gazeTarget.GetComponent<Renderer>().enabled = true;
     }
 
