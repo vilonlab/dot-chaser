@@ -61,7 +61,8 @@ public class ExperimentManager : MonoBehaviour{
         deltaTimeHistory = new CircularBuffer<float>(20);
         eyeMgr = GameObject.Find("OVRCameraRig").GetComponent<EyeTrackManager>();
 
-        dataLogger = new DataLogger(DataLogger.GetCurrentPath() + "/_Data/test.csv");
+        bool overrideDataFile = participantID == 0; // ptpnt ID 0 is a dummy ID, so we can override the data file in that case since we don't care about preserving the data
+        dataLogger = new DataLogger(DataLogger.GetCurrentPath() + $"/_Data/ptpnt{participantID}_log_data.csv", overrideDataFile);
         dataLogger.WriteLine("virt_pos_x,virt_pos_y,virt_pos_z,phys_pos_x,phys_pos_y,phys_pos_z,virt_heading_x,virt_heading_y,virt_heading_z,phys_heading_x,phys_heading_y,phys_heading_z,cyclopean_gaze_pos_x,cyclopean_gaze_pos_y,cyclopean_gaze_pos_z,cyclopean_gaze_dir_x,cyclopean_gaze_dir_y,cyclopean_gaze_dir_z,left_gaze_dir_x,left_gaze_dir_y,left_gaze_dir_z,right_gaze_dir_x,right_gaze_dir_y,right_gaze_dir_z,cyclopean_gaze_angular_velocity,weighted_gaze_angular_velocity,left_eye_closed,right_eye_closed,gaze_state,timestamp,frame_number,unity_delta_time");        
     }
 
@@ -85,7 +86,9 @@ public class ExperimentManager : MonoBehaviour{
     }
 
     void LateUpdate(){
-        LogData();
+        if (Time.frameCount > 200){ // Don't bother log anything at the very start of the app, because things are initializing 
+            LogData();
+        }        
     }
 
     void LogData(){
