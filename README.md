@@ -10,8 +10,11 @@ Built with Unity. An observational experiment investigating the retinotopic flow
 3) Make sure your project is configured for XR (Edit --> Project Settings --> XR Plugin Management (install and check the "Oculus" box)).
 
 4) Make sure the [Meta Quest Link](https://www.meta.com/help/quest/1517439565442928/) client is configured correctly:
+
     4a) Once your Quest Pro is plugged into the PC, it should be recognized in the client.
+
     4b) Ensure eye tracking is enabled (Settings --> Beta --> check "Eye tracking over Meta Quest Link" and "Face tracking over Meta Quest Link")
+
     4c) Make sure the active OpenXR runtime is set to Meta Quest Link (Settings --> General tab)
 
 5) Put on the HMD and enter the Quest Link app (should be a white, gridded environment like the screenshot below)
