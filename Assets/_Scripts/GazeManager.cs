@@ -48,15 +48,16 @@ public class GazeManager : MonoBehaviour{
 
             RaycastHit hit;
             // int layerMask = LayerMask.NameToLayer("Ignore Raycast");
-            int layerMask = LayerMask.NameToLayer("Raycast hit");
+            // int layerMask = LayerMask.NameToLayer("Raycast hit");
+            int layerMask = LayerMask.GetMask("Raycast hit");
             // layerMask = ~layerMask;
             if (Physics.Raycast(hmd.transform.position, gazeDir, out hit, Mathf.Infinity, layerMask)){
                 gazeTarget.transform.position = hmd.transform.position + (gazeDir * hit.distance);
-                if (gazeTarget.GetComponent<Renderer>().enabled) gazeTarget.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                if (gazeTarget.GetComponent<Renderer>().enabled) gazeTarget.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
             }
             else{
                 gazeTarget.transform.position = hmd.transform.position + (gazeDir * 5.0f);
-                if (gazeTarget.GetComponent<Renderer>().enabled) gazeTarget.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+                if (gazeTarget.GetComponent<Renderer>().enabled) gazeTarget.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
             }
         }
     }
