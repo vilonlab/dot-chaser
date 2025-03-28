@@ -44,7 +44,6 @@ public class EyeTrackManager : MonoBehaviour{
     public CircularBuffer<float> deltaTimeHistory;
 
     // Gaze target object stuff
-    DataLogger gazeDataLogger;
     RaycastHit gazeHit;
     GameObject gazeHitObj;
 
@@ -57,8 +56,6 @@ public class EyeTrackManager : MonoBehaviour{
     // https://www.youtube.com/watch?v=ZoySn7QlMfQ
     void Start(){
         expMgr = GameObject.Find("OVRCameraRig").GetComponent<ExperimentManager>();
-        gazeDataLogger = new DataLogger(DataLogger.GetCurrentPath() + "/_Data/gazeDataLogger.csv");
-        gazeDataLogger.WriteLine("gaze_position_x,gaze_position_y,gaze_position_z,object_name,timestamp");
         leftGazeMgr = GameObject.Find("LeftGazeManager").GetComponent<GazeManager>();
         rightGazeMgr = GameObject.Find("RightGazeManager").GetComponent<GazeManager>();
         bufferWeights = new List<float>();
@@ -90,14 +87,14 @@ public class EyeTrackManager : MonoBehaviour{
         // leftGazePos = expMgr.VE.transform.InverseTransformPoint(leftGazeMgr.gazeTarget.transform.position);
         leftGazePos = leftGazeMgr.gazeTarget.transform.position;
         leftGazeDir = leftGazeMgr.gazeDir;
-        print(leftGazeDir);
-        print("***************");
+        //print(leftGazeDir);
+        //print("***************");
         // rightGazePos = expMgr.VE.transform.InverseTransformPoint(rightGazeMgr.gazeTarget.transform.position);
         rightGazePos = rightGazeMgr.gazeTarget.transform.position;
         rightGazeDir = rightGazeMgr.gazeDir;
         centerGazePos = (leftGazePos + rightGazePos) / 2.0f;
         // TODO: FIXME: TODO: FIXME: TODO: FIXME: TODO: FIXME: TODO: FIXME:
-        // MAKE SURE I UPDATE GAZE POSITION TO BE IN LOCAL COORDINATE FRAME OF THE VIRT ENV
+        // MAKE SURE THAT GAZE POSITION IS IN LOCAL COORDINATE FRAME OF THE VIRT ENV
         // TODO: FIXME: TODO: FIXME: TODO: FIXME: TODO: FIXME: TODO: FIXME:
         centerGazeDir = Vector3.Normalize(centerGazePos - expMgr.curHMDState.virtPos);
 

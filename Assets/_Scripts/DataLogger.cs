@@ -10,14 +10,14 @@ public class DataLogger {
     string filePath;
 	private StreamWriter outputStream;
 
-    public DataLogger(string fileName){
+    public DataLogger(string fileName, bool forceOverride=true){
         filePath = Path.Combine(Application.persistentDataPath, fileName);
 
         if (!File.Exists(filePath)){
             outputStream = File.CreateText(filePath);
         }
-        else{
-            Debug.Log("Trying to create a log file that already exists! Are you sure you want to override the file? The previously-logged data will be lost!")
+        else if (!forceOverride){ // quit out of the app instead of trying to override the existing participant data file
+            Debug.Log("Trying to create a log file that already exists! Are you sure you want to override the file? The previously-logged data will be lost!");
             #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
             #else
