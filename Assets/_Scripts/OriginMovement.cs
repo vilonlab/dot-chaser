@@ -35,7 +35,7 @@ public class OriginMovement : MonoBehaviour
 
             if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
             {
-                Vector3 newOriginPoint = new Vector3(rig.transform.position.x, 0.5f, rig.transform.position.z);
+                Vector3 newOriginPoint = new Vector3(rig.transform.position.x, 0f, rig.transform.position.z); // TDW changed y pos to 0
                 origin.transform.position = newOriginPoint;
                 origin.transform.rotation = handDirection;
                 Debug.Log($"Origin Point Set at {newOriginPoint}");

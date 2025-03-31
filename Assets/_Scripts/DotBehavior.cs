@@ -72,8 +72,7 @@ public class DotBehavior : MonoBehaviour
             // Clamp the target position within the floor bounds
             targetPosition.x = Mathf.Clamp(targetPosition.x, floorBounds.min.x, floorBounds.max.x);
             targetPosition.z = Mathf.Clamp(targetPosition.z, floorBounds.min.z, floorBounds.max.z);
-            targetPosition.y = 0.25f; // Keep the sphere at a fixed height
-
+            // y position = 0f, bisecting the ground plane. Doesn't need to be set.
             attempts++;
         } while (!IsPositionValid(targetPosition) && attempts < maxAttempts);
 
