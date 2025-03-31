@@ -21,6 +21,12 @@ Built with Unity. An observational experiment investigating the retinotopic flow
 
 ![Screenshot of the Quest Link app](quest_link.png)
 
+## Dev Notes: 2025-03-31
+`Trent`
+
+- I added a "GroundPlane" tag to the floor (`VirtualEnv`), so that it's grabbed automatically on experiment start. I also added "Player" tag to the `OVRCameraRig` to register in sphere (dot) collider interactions.
+- Edited Braden's SpawnBehavior code, called it `DotBehavior` and changed some of the parameters to randomize the location within a certain distance of the participant (player) - trying randomly at first and then spawning the dot towards the middle of the floor if random selection fails.
+
 ## Dev Notes: 2025-02-17
 
 I (Niall) added updated eye tracking and logging. Still need to verify that we are logging the correct gaze vector (local eye-in-head vector vs world-space vector).

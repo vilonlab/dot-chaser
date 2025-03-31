@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "DotChaser.sln"
+    "dotnet.defaultSolution": "dot-chaser.sln"
 }
