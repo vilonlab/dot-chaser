@@ -7,7 +7,7 @@ public class DotBehavior : MonoBehaviour
 {
     private GameObject floor; // Made private
     private GameObject player; // Added reference to the Player GameObject
-    private Collider collider;
+    private Collider floorCollider;
     private Bounds floorBounds;
     private Collider sphereCollider;
 
@@ -23,22 +23,22 @@ public class DotBehavior : MonoBehaviour
             return;
         }
 
-        collider = floor.GetComponent<Collider>();
-        if (collider == null)
+        floorCollider = floor.GetComponent<Collider>();
+        if (floorCollider == null)
         {
             Debug.LogError("The GameObject with tag 'GroundPlane' does not have a Collider component.");
             return;
         }
 
-        floorBounds = collider.bounds;
+        floorBounds = floorCollider.bounds;
         sphereCollider = gameObject.GetComponent<Collider>();
 
         // Find the player object by tag "Player"
         // Ensure only one object in the scene has this tag
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("CenterEyeAnchor"); // Changed to find the center eye anchor directly
         if (player == null)
         {
-            Debug.LogError("No GameObject with tag 'Player' found in the scene.");
+            Debug.LogError("No GameObject called CenterEyeAnchor found in the scene.");
             return;
         }
     }
@@ -59,6 +59,9 @@ public class DotBehavior : MonoBehaviour
         int maxAttempts = 3; // Limit the number of attempts to avoid infinite loops
         int attempts = 0;
 
+        // Store the current y position of the sphere
+        float currentY = gameObject.transform.position.y;
+
         // Try to find a random valid position
         do
         {
@@ -72,7 +75,10 @@ public class DotBehavior : MonoBehaviour
             // Clamp the target position within the floor bounds
             targetPosition.x = Mathf.Clamp(targetPosition.x, floorBounds.min.x, floorBounds.max.x);
             targetPosition.z = Mathf.Clamp(targetPosition.z, floorBounds.min.z, floorBounds.max.z);
-            // y position = 0f, bisecting the ground plane. Doesn't need to be set.
+
+            // Retain the current y position
+            targetPosition.y = currentY;
+
             attempts++;
         } while (!IsPositionValid(targetPosition) && attempts < maxAttempts);
 
@@ -95,7 +101,9 @@ public class DotBehavior : MonoBehaviour
             // Clamp the fallback position within the floor bounds
             targetPosition.x = Mathf.Clamp(targetPosition.x, floorBounds.min.x, floorBounds.max.x);
             targetPosition.z = Mathf.Clamp(targetPosition.z, floorBounds.min.z, floorBounds.max.z);
-            targetPosition.y = 0.25f; // Keep the sphere at a fixed height
+
+            // Retain the current y position
+            targetPosition.y = currentY;
         }
 
         Debug.Log(targetPosition);
@@ -111,10 +119,10 @@ public class DotBehavior : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("MainCamera"))
         {
             MoveSphere();
-            Debug.Log("Well, we got this far.");
+            Debug.Log($"Sphere moved to a new position: {gameObject.transform.position}");
         }
     }
 }

@@ -24,6 +24,16 @@ public class HMDState{
     }
 }
 
+public class TrialInfo {
+    public int TrialNumber { get; private set; }
+    public string TrialType { get; private set; }
+
+    public TrialInfo(int trialNumber, string trialType) {
+        TrialNumber = trialNumber;
+        TrialType = trialType;
+    }
+}
+
 public class ExperimentManager : MonoBehaviour{
 
     // Position stuff
@@ -50,6 +60,12 @@ public class ExperimentManager : MonoBehaviour{
     public int trialNumber = 1;
     public float curTrialTime = 0.0f;
 
+    // CSV file for trial information
+    public TextAsset trialInfoCSV;
+
+    // List to store trial information
+    private List<TrialInfo> trialInfoList = new List<TrialInfo>();
+
     void Awake(){
         cameraRig = GameObject.Find("OVRCameraRig");
         hmd = GameObject.Find("CenterEyeAnchor").GetComponent<Camera>();
@@ -64,8 +80,40 @@ public class ExperimentManager : MonoBehaviour{
         bool overrideDataFile = participantID == 0; // ptpnt ID 0 is a dummy ID, so we can override the data file in that case since we don't care about preserving the data
         dataLogger = new DataLogger(DataLogger.GetCurrentPath() + $"/_Data/ptpnt{participantID}_log_data.csv", overrideDataFile);
         dataLogger.WriteLine("virt_pos_x,virt_pos_y,virt_pos_z,phys_pos_x,phys_pos_y,phys_pos_z,virt_heading_x,virt_heading_y,virt_heading_z,phys_heading_x,phys_heading_y,phys_heading_z,cyclopean_gaze_pos_x,cyclopean_gaze_pos_y,cyclopean_gaze_pos_z,cyclopean_gaze_dir_x,cyclopean_gaze_dir_y,cyclopean_gaze_dir_z,left_gaze_dir_x,left_gaze_dir_y,left_gaze_dir_z,right_gaze_dir_x,right_gaze_dir_y,right_gaze_dir_z,cyclopean_gaze_angular_velocity,weighted_gaze_angular_velocity,left_eye_closed,right_eye_closed,gaze_state,timestamp,frame_number,unity_delta_time");        
+
+        // Load the trial_info.csv file
+        if (trialInfoCSV != null){
+            string csvContent = trialInfoCSV.text;
+            ParseCSV(csvContent);
+        } else {
+            Debug.LogError("Trial Info CSV file is not assigned!");
+        }
     }
 
+    void ParseCSV(string csvContent){
+        string[] lines = csvContent.Split('\n');
+        for (int i = 1; i < lines.Length; i++) { // Skip the header line
+            if (!string.IsNullOrWhiteSpace(lines[i])) {
+                string[] values = lines[i].Split(',');
+                if (values.Length == 2) {
+                    int trialNumber = int.Parse(values[0].Trim());
+                    string trialType = values[1].Trim();
+                    trialInfoList.Add(new TrialInfo(trialNumber, trialType));
+                }
+            }
+        }
+
+        // Debug: Print the parsed trial information
+        foreach (var trial in trialInfoList) {
+            Debug.Log($"Trial Number: {trial.TrialNumber}, Trial Type: {trial.TrialType}");
+        }
+    }
+
+    // Example method to get trial info by trial number
+    public TrialInfo GetTrialInfo(int trialNumber) {
+        return trialInfoList.Find(trial => trial.TrialNumber == trialNumber);
+    }
+    
     // Start is called before the first frame update
     void Start(){
         
