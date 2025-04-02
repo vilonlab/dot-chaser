@@ -109,11 +109,11 @@ public class ExperimentManager : MonoBehaviour{
         }
     }
 
-    // Example method to get trial info by trial number
-    public TrialInfo GetTrialInfo(int trialNumber) {
-        return trialInfoList.Find(trial => trial.TrialNumber == trialNumber);
+    public void IncrementTrialNumber() {
+        trialNumber++;
+        Debug.Log($"Trial number incremented to: {trialNumber}");
     }
-    
+
     // Start is called before the first frame update
     void Start(){
         

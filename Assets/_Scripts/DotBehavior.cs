@@ -108,6 +108,17 @@ public class DotBehavior : MonoBehaviour
 
         Debug.Log(targetPosition);
         gameObject.transform.position = targetPosition;
+
+        // Increment the trial number in ExperimentManager
+        ExperimentManager experimentManager = FindObjectOfType<ExperimentManager>();
+        if (experimentManager != null)
+        {
+            experimentManager.IncrementTrialNumber();
+        }
+        else
+        {
+            Debug.LogError("ExperimentManager not found in the scene.");
+        }
     }
 
     private bool IsPositionValid(Vector3 position)

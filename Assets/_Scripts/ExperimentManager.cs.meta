@@ -3,7 +3,15 @@ guid: bbc8361a4d9a94b4abf2ffeb76ccfd39
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cameraRig: {instanceID: 0}
+  - hmd: {instanceID: 0}
+  - VE: {instanceID: 0}
+  - PE: {instanceID: 0}
+  - eyeMgr: {instanceID: 0}
+  - leftHand: {instanceID: 0}
+  - rightHand: {instanceID: 0}
+  - trialInfoCSV: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
