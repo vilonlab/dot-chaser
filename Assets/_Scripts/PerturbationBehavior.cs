@@ -84,10 +84,16 @@ public class PerturbationBehavior : MonoBehaviour
         ExperimentManager experimentManager = FindObjectOfType<ExperimentManager>();
         if (experimentManager != null)
         {
+            if (experimentManager.AreAllTrialsCompleted()) // Check if all trials are completed, if so, stop
+            {
+                Debug.Log("All trials have been completed.");
+                // TODO: Need a way to tell the participant that all trials have been completed
+                return; // Stop further processing
+            }
             TrialInfo currentTrial = experimentManager.GetTrialInfo(experimentManager.trialNumber);
             Debug.Log($"Current trial number: {experimentManager.trialNumber}");
             Debug.Log($"Current trial type: {currentTrial?.TrialType}");
-            
+
             if (currentTrial != null)
             {
                 switch (currentTrial.TrialType)

@@ -109,9 +109,27 @@ public class ExperimentManager : MonoBehaviour{
         }
     }
 
+    public TrialInfo GetTrialInfo(int trialNumber){   
+        // Ensure the trial number is within bounds
+        if (trialNumber > 0 && trialNumber <= trialInfoList.Count)
+        {
+            return trialInfoList[trialNumber - 1]; // Subtract 1 because trialNumber is 1-based
+        }
+        else
+        {
+            Debug.LogError($"Invalid trial number: {trialNumber}. No trial information available.");
+            return null;
+        }
+    }
+
     public void IncrementTrialNumber() {
         trialNumber++;
         Debug.Log($"Trial number incremented to: {trialNumber}");
+    }
+
+    public bool AreAllTrialsCompleted()
+    {
+        return trialNumber > trialInfoList.Count;
     }
 
     // Start is called before the first frame update
