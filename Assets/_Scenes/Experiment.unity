@@ -2823,7 +2823,7 @@ MonoBehaviour:
   participantID: 0
   trialNumber: 1
   curTrialTime: 0
-  trialInfoCSV: {fileID: 0}
+  trialInfoCSV: {fileID: 4900000, guid: 694eb8d27df04c142ae46f4a55600fa6, type: 3}
 --- !u!114 &528191252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9391,7 +9391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   origin: {fileID: 1925120972}
-  rig: {fileID: 682673509}
+  centerEyeAnchor: {fileID: 682673509}
+  ovrRig: {fileID: 528191246}
   hand: {fileID: 458602892}
 --- !u!4 &1864452760
 Transform:
