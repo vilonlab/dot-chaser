@@ -20,6 +20,7 @@ Built with Unity. An observational experiment investigating the retinotopic flow
 5) Put on the HMD and enter the Quest Link app (should be a white, gridded environment like the screenshot below)
 
 ![Screenshot of the Quest Link app](quest_link.png)
+
 ## Dev Notes: 2025-04-01
 
 Fixed dotBehavior, working on trial information now. Doing this in `ExperimentManager`
@@ -58,6 +59,7 @@ TODO:
 5. Implement a trial structure
 6. Implement "blunt" perturbations -- meaning easy to pull off (global world translation/rotation)
 7. Integrate Motion Analysis;; most likely recording in parallel so that Unity isn't awar of the motion capture
+
 
 ## Dev Notes: 2025-02-17
 
