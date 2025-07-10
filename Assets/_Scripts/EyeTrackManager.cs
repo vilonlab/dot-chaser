@@ -87,8 +87,8 @@ public class EyeTrackManager : MonoBehaviour{
         // leftGazePos = expMgr.VE.transform.InverseTransformPoint(leftGazeMgr.gazeTarget.transform.position);
         leftGazePos = leftGazeMgr.gazeTarget.transform.position;
         leftGazeDir = leftGazeMgr.gazeDir;
-        print(leftGazeDir);
-        print("***************");
+        //print(leftGazeDir);
+        //print("***************");
         // rightGazePos = expMgr.VE.transform.InverseTransformPoint(rightGazeMgr.gazeTarget.transform.position);
         rightGazePos = rightGazeMgr.gazeTarget.transform.position;
         rightGazeDir = rightGazeMgr.gazeDir;

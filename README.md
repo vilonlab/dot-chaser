@@ -21,6 +21,46 @@ Built with Unity. An observational experiment investigating the retinotopic flow
 
 ![Screenshot of the Quest Link app](quest_link.png)
 
+## Dev Notes: 2025-04-01
+
+Fixed dotBehavior, working on trial information now. Doing this in `ExperimentManager`
+
+ChatGPT's explanation of the changes it made to the trial info (that I mostly trust but want to work to understand before proceeding):
+
+Explanation:
+
+`TrialInfo` Class: Represents each trial's data with properties for TrialNumber and TrialType.
+
+`trialInfoList`: A List<TrialInfo> to store all parsed trial data.
+
+`ParseCSV` Method: Reads the CSV content, skips the header, and populates the `trialInfoList`.
+
+`GetTrialInfo` Method: Allows you to retrieve a specific trial's information by its trial number.
+Usage:
+
+You can now access the trial data in your experiment logic using the `trialInfoList` or the `GetTrialInfo` method. For example:
+```c#
+TrialInfo currentTrial = GetTrialInfo(trialNumber);
+Debug.Log($"Current Trial Type: {currentTrial.TrialType}");
+```
+This setup will allow you to dictate the experiment's behavior based on the trial data in the CSV file.
+
+## Dev Notes: 2025-03-31
+`Trent`
+
+- I added a "GroundPlane" tag to the floor (`VirtualEnv`), so that it's grabbed automatically on experiment start. I also added "Player" tag to the `OVRCameraRig` to register in sphere (dot) collider interactions.
+- Edited Braden's SpawnBehavior code, called it `DotBehavior` and changed some of the parameters to randomize the location within a certain distance of the participant (player) - trying randomly at first and then spawning the dot towards the middle of the floor if random selection fails.
+
+TODO: 
+1. Work on the "player" triggered behavior with the dot, maybe explore capsule collider instead of sphere so that participant can almost stand over the dot by the end of every trial
+2. the size of the ground plane feels off to me, like too big. Need to figure out eye height of HMD (make sure it's right) and then make sure the size of the room/ground plane is appropriate
+3. Talk to Niall about building to device
+4. Make sure we're recording data so we can recreate the visual scene
+5. Implement a trial structure
+6. Implement "blunt" perturbations -- meaning easy to pull off (global world translation/rotation)
+7. Integrate Motion Analysis;; most likely recording in parallel so that Unity isn't awar of the motion capture
+
+
 ## Dev Notes: 2025-02-17
 
 I (Niall) added updated eye tracking and logging. Still need to verify that we are logging the correct gaze vector (local eye-in-head vector vs world-space vector).
